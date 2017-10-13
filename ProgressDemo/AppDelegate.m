@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
+#import "ViewController.h"
+#import "HXProgress.h"
 @interface AppDelegate ()
 
 @end
@@ -17,6 +18,34 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    /*
+     code init ViewController
+     */
+    ViewController * viewC = [[ ViewController alloc] init];
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:viewC];
+    
+    
+    
+    
+    [self.window setRootViewController:nav];
+    [self.window makeKeyAndVisible];
+    
+    //提示框样式
+    [HXProgress setProgressHUDStyle:^{
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
+        [SVProgressHUD setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:1]];
+        [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+        
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+
+    }];
+    //toast 设置
+    CSToastStyle * toastStyle = [[CSToastStyle alloc] initWithDefaultStyle];
+    toastStyle.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.8];
+    [HXProgress setToastPosition:CSToastPositionCenter style:toastStyle isTapDismiss:NO];
+
     return YES;
 }
 
