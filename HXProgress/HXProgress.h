@@ -30,8 +30,6 @@ static NSString * msg = @"加载中..."; //hud msg
  Toast提示框
  */
 + (void)setToastPosition:(id)position style:(CSToastStyle *)style isTapDismiss:(BOOL)isTapDismiss;
-
-+ (void)setToastStyle:(void(^)(void))style;
 + (void)showToastWithMsg:(NSString *)msg;
 + (void)showToastWithMsg:(NSString *)msg showTime:(CGFloat)showTime;
 
