@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "HXProgressHUD"
-  s.version      = "0.0.2"
+  s.version      = "1.0.3"
   s.summary      = "对SVProgressHUD 以及 Toast 二次封装，便于使用"
 
   # This description is used to generate tags and improve search results.
