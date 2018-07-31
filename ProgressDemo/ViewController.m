@@ -1,41 +1,23 @@
-//
-//  ViewController.m
-//  ProgressDemo
-//
-//  Created by 郭海祥 on 2017/10/11.
-//  Copyright © 2017年 ghx. All rights reserved.
-//
-
 #import "ViewController.h"
-
 #import "HXProgress.h"
-
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource> {
     UITableView * tableV;
     NSArray * sectionRowsTitles;
 }
-
 @end
-
 @implementation ViewController
 #pragma mark- cycle life
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     [self initNav];
     [self initUI];
-    
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 #pragma mark- initUI
 - (void)initUI {
     CGRect tableVFrame = self.view.frame;
-//    tableVFrame.size.height = tableVFrame.size.height - 64;
-    
     tableV = [[UITableView alloc] initWithFrame:tableVFrame style:UITableViewStyleGrouped];
     tableV.delegate = self;
     tableV.dataSource = self;
@@ -43,7 +25,6 @@
     [self.view addSubview:tableV];
 }
 - (void)initNav {
-    //按钮
     UIButton * rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
     [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [rightBtn setTitle:@"push" forState:UIControlStateNormal];
@@ -53,17 +34,10 @@
     self.title = @"你好";
 }
 #pragma mark- Event
-
 - (void)rightBtnClick {
     NSLog(@"right");
 }
 #pragma mark- Setting Getting
-
-
-
-
-
-
 #pragma mark -TableView DataSource
 -  (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
@@ -73,25 +47,17 @@
                           @[@"Progress默认没文字",@"Progress有文字",@"Progress文字图片",@"上传长时间操作"],@[@"消失",@"消失带图片成功",@"消失失败"]];
     return [sectionRowsTitles[section] count];
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     static NSString *CellIdentifier = @"testCell";
-    //自定义cell类
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        //通过xib的名称加载自定义的cell
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     cell.textLabel.text  = sectionRowsTitles[indexPath.section][indexPath.row];
-   
     return cell;
-    
 }
-
 #pragma mark TableView Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //点击cell操作
     switch (indexPath.section) {
         case 0: {
             switch (indexPath.row) {
@@ -100,12 +66,9 @@
                 }
                     break;
                 case 1: {
-//                    [HXProgress setToastPosition:CSToastPositionBottom style:nil];
-                    
                     [HXProgress showToastWithMsg:@"固定2秒的提示" title:@"标题" image:[UIImage imageNamed:@"LOGO.png"] tapBlock:^(BOOL didTap) {
                         NSLog(@"点击了 Toast");
                     }] ;
-//                    [HXProgress setToastPosition:CSToastPositionTop style:nil];
                 }
                     break;
                 case 2: {
@@ -116,7 +79,6 @@
                     })];
                 }
                     break;
-                    
                 default:
                     break;
             }
@@ -124,37 +86,30 @@
             break;
         case 1: {
             switch (indexPath.row) {
-                case 0: { //无图无文字
+                case 0: { 
                     [HXProgress showHUD];
                 }
                     break;
-                case 1: { //文字
+                case 1: { 
                     [HXProgress showWithStatus:@"加载中..."];
                 }
                     break;
-                case 2: { //图文 自动消失
+                case 2: { 
                     [HXProgress showImage:[UIImage imageNamed:@"qqq.png"] status:@"带图片的HUD"];
                 }
-        
                     break;
-                case 3: { //长时间操作
+                case 3: { 
                     dispatch_async(dispatch_get_main_queue(), ^{
                         for (int i = 1; i < 101; i ++) {
-                        
                             [HXProgress showProgress:i/100.0 status:[NSString stringWithFormat:@"已上传 %d %%",i]];
                             if (i == 100) {
                                 sleep(0.1);
                                 [HXProgress dismissHUD:[UIImage imageNamed:@"qqq.png"] status:@"操作完成!!"];
                             }
                         }
-                       
                     });
-                    
                 }
-                    
                     break;
-                    
-                    
                 default:
                     break;
             }
@@ -174,53 +129,35 @@
                     [HXProgress dismissHUD:[UIImage imageNamed:@"qqq.png"] status:@"带文字消失"];
                 }
                     break;
-                    
                 default:
                     break;
             }
         }
             break;
-            
         default:
             break;
     }
 }
-
 - (void)setExtraCellLineHidden: (UITableView *)tableView{
-    //隐藏多余的cell分割线
     UIView *view =[ [UIView alloc]init];
     view.backgroundColor = [UIColor clearColor];
     [tableView setTableFooterView:view];
-    //    [tableView setTableHeaderView:view];
-    
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //cell高度
     return 45;
 }
-
 #pragma mark- tableV headView Custom
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
     NSArray * titleArr = @[@"Toast",@"Progress",@"消失"];
-    
     UIView * headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 25)];
-    //时间轴 时间
     UILabel * timeLab = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 25)];
-    
-    
     NSString * headStr = [titleArr objectAtIndex:section];
-    
     timeLab.text = headStr;
     timeLab.textColor = [UIColor lightGrayColor];
     timeLab.font = [UIFont systemFontOfSize:14];
     [headView addSubview:timeLab];
-    
     headView.backgroundColor = [UIColor clearColor];
     return headView;
-
-    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 25;
@@ -228,5 +165,4 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.00001f;
 }
-
 @end

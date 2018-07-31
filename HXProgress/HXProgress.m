@@ -55,19 +55,25 @@
         [CSToastManager setSharedStyle:style];
     }
     [CSToastManager setTapToDismissEnabled:isTapDismiss];
-    
+}
 
-   
++ (void)showToastWithMsg:(NSString *)msg inView:(UIView *)view {
+     [self showToastWithMsg:msg showTime:ShowToastTime inView:view];
 }
 
 + (void)showToastWithMsg:(NSString *)msg {
-    [self showToastWithMsg:msg showTime:ShowToastTime];
+    [self showToastWithMsg:msg showTime:ShowToastTime inView:[self currView]];
 }
 
-+ (void)showToastWithMsg:(NSString *)msg showTime:(CGFloat)showTime {
++ (void)showToastWithMsg:(NSString *)msg showTime:(CGFloat)showTime inView:(UIView *)view {
+    
+    if (view == nil) {
+        view = [self currView];
+    }
+    
     if ([[HXProgress sharedInstance] canShow]) {
         [[HXProgress sharedInstance] setCanShow:NO];
-        [[self currView] makeToast:msg
+        [view makeToast:msg
                           duration:showTime
                           position:[CSToastManager defaultPosition]
                              title:nil
