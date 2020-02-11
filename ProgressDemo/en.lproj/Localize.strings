@@ -1,0 +1,11 @@
+/* 
+  Localize.strings
+  ProgressDemo
+
+  Created by guohx on 2019/8/27.
+  Copyright © 2019 ghx. All rights reserved.
+*/
+
+
+"你好"="hello";
+"还行"="";

@@ -18,6 +18,7 @@ static NSString * msg = @"加载中..."; //hud msg
 
 @interface HXProgress : NSObject
 
+
 #pragma mark - Toast
 /*
  NSString * CSToastPositionTop       = @"CSToastPositionTop";

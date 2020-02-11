@@ -31,7 +31,7 @@
     [rightBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     self.navigationItem.rightBarButtonItem = item;
-    self.title = @"你好";
+    self.title = NSLocalizedString(@"你好", nil);//@"你好";
 }
 #pragma mark- Event
 - (void)rightBtnClick {
