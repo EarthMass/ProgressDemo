@@ -99,7 +99,9 @@
 }
 
 + (void)showToastWithMsg:(NSString *)msg showTime:(CGFloat)showTime inView:(UIView *)view {
-    
+    if (msg == nil || msg.length == 0) {
+        return;
+    }
     if (view == nil) {
         view = [self currView];
     }
@@ -127,6 +129,11 @@
     [self showToastWithMsg:msg title:title image:image tapBlock:tapBlock showTime:ShowToastTime];
 }
 + (void)showToastWithMsg:(NSString *)msg title:(NSString *)title image:(UIImage *)image tapBlock:(void(^)(BOOL didTap))tapBlock showTime:(CGFloat)showTime {
+    
+    if (msg == nil || msg.length == 0) {
+        return;
+    }
+    
     if ([[HXProgress sharedInstance] canShow]) {
         [[HXProgress sharedInstance] setCanShow:NO];
         [[self currView] makeToast:msg
@@ -150,6 +157,7 @@
     [self showToastWithCustomView:customView showTime:ShowToastTime];
 }
 + (void)showToastWithCustomView:(UIView *)customView showTime:(CGFloat)showTime {
+ 
     if ([[HXProgress sharedInstance] canShow]) {
         [[HXProgress sharedInstance] setCanShow:NO];
         [[self currView] showToast:customView duration:showTime position:[CSToastManager defaultPosition] completion:^(BOOL didTap) {
